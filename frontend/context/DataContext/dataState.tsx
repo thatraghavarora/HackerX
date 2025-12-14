@@ -61,8 +61,9 @@ function DataState({ children }: { children: React.ReactNode }) {
 
   const addresses: contractAddressesInterface = contractAddresses;
   const { chainId: chainIdHex, isWeb3Enabled } = useMoralis();
-  const chainId: string = parseInt(chainIdHex!).toString();
-  const raffleAddress = chainId in addresses ? addresses[chainId][0] : null;
+  const chainId: string = chainIdHex ? parseInt(chainIdHex).toString() : "";
+  const raffleAddress: string | undefined =
+    chainId && chainId in addresses ? addresses[chainId][0] : undefined;
 
   const dispatch = useNotification();
 
@@ -72,14 +73,14 @@ function DataState({ children }: { children: React.ReactNode }) {
     isFetching,
   } = useWeb3Contract({
     abi: abi,
-    contractAddress: raffleAddress!, // specify the networkId
+    contractAddress: raffleAddress ?? undefined, // specify the networkId
     functionName: "getUserTransactions",
     params: {},
   });
 
   const { runContractFunction: getTransactionsLength } = useWeb3Contract({
     abi: abi,
-    contractAddress: raffleAddress!, // specify the networkId
+    contractAddress: raffleAddress ?? undefined, // specify the networkId
     functionName: "getUserTransactionsLen",
     params: {},
   });
@@ -117,9 +118,13 @@ function DataState({ children }: { children: React.ReactNode }) {
   const addIncomeToContract = async (_params: transactionparam) => {
     console.log("income params: ", _params);
     if (isWeb3Enabled) {
+      if (!raffleAddress) {
+        handleNewNotification({ _type: "error", _message: "No contract address for current network" });
+        return;
+      }
       let options = {
         abi: abi,
-        contractAddress: raffleAddress!,
+        contractAddress: raffleAddress,
         functionName: "addIncome",
         params: _params,
       };
@@ -137,9 +142,13 @@ function DataState({ children }: { children: React.ReactNode }) {
     console.log("expense params: ", _params);
 
     if (isWeb3Enabled) {
+      if (!raffleAddress) {
+        handleNewNotification({ _type: "error", _message: "No contract address for current network" });
+        return;
+      }
       let options = {
         abi: abi,
-        contractAddress: raffleAddress!,
+        contractAddress: raffleAddress,
         functionName: "addExpense",
         params: _params,
       };
@@ -155,9 +164,13 @@ function DataState({ children }: { children: React.ReactNode }) {
   const { runContractFunction: deleteTransaction } = useWeb3Contract();
   const deleteContractTransaction = async (_params: { id: string }) => {
     if (isWeb3Enabled) {
+      if (!raffleAddress) {
+        handleNewNotification({ _type: "error", _message: "No contract address for current network" });
+        return;
+      }
       let options = {
         abi: abi,
-        contractAddress: raffleAddress!,
+        contractAddress: raffleAddress,
         functionName: "deleteTransaction",
         params: _params,
       };

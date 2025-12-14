@@ -37,7 +37,7 @@ function IncomeChart() {
   return (
     <div>
       <h4 className="d-flex justify-content-center">
-        Total Income: ₹ {overview.income}
+        Total Income: $ {overview.income}
       </h4>
       {overview.income === 0 ? (
         <img

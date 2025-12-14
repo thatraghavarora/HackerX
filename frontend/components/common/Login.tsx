@@ -20,7 +20,7 @@ function Login() {
             flexDirection: 'column',
             alignItems: 'center'
           }}>
-          <h2 style={{ fontWeight: 'bold' }}>Welcome to Jarvis</h2>
+          <h2 style={{ fontWeight: 'bold' }}>Welcome to RA2</h2>
           <ConnectButton moralisAuth={false} />
         </div>
       </div>

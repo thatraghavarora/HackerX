@@ -7,9 +7,9 @@ import "./tasks/accounts";
 import "@typechain/hardhat";
 import "hardhat-deploy";
 
-const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || "https://eth-goerli.alchemyapi.io/v2/your-api-key"
-const PRIVATE_KEY = process.env.PRIVATE_KEY || "0x"
-const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
+const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || "https://eth-mainnet.g.alchemy.com/v2/4hsIVy-qgM_64W-RS7KR8"
+const PRIVATE_KEY = process.env.PRIVATE_KEY || "701031e8f4a37653be699410a7130eed66927908caef719f8d865a616ca6ed0d"
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "4hsIVy-qgM_64W-RS7KR8"
 
 module.exports = {
   defaultNetwork: "hardhat",

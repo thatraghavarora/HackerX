@@ -37,7 +37,7 @@ export function PieChart() {
   return (
     <div>
       <h4 className="d-flex justify-content-center">
-        You Balance: ₹ {overview.income - overview.expense}
+        You Balance: $ {overview.income - overview.expense}
       </h4>
       {overview.income - overview.expense !== 0 ? (
         <Pie data={piedata} />

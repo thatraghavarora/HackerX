@@ -9,7 +9,6 @@ import {
   FloatingLabel,
 } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
-import { useSpeechContext } from "@speechly/react-client";
 import { formatDate } from "../../utils/formatDate";
 import {
   incomeCategories,
@@ -36,7 +35,6 @@ function InputForm() {
   const { addIncomeToContract, addExpenseToContract } = useContext(dataContext);
   const [formData, setFormData] = React.useState(initialState);
   const [loading, setLoading] = useState(false);
-  const { segment } = useSpeechContext();
   const [dateError, setDateError] = useState("");
 
   useEffect(() => {
@@ -49,40 +47,6 @@ function InputForm() {
       setDateError("");
     }
   }, [formData.date]);
-  const getSpeech = () => {
-    if (segment) {
-      if (segment.intent.intent === "add_expense") {
-        setFormData({ ...formData, type: "expense" });
-      } else if (segment.intent.intent === "add_income") {
-        setFormData({ ...formData, type: "income" });
-      }
-
-      segment.entities.forEach((e) => {
-        switch (e.type) {
-          case "amount":
-            setFormData({ ...formData, amount: e.value });
-            break;
-          case "category":
-            const c = `${e.value.charAt(0)}${e.value.toLowerCase().slice(1)}`;
-            if (incomeCategories.map((iC) => iC.type).includes(c)) {
-              setFormData({ ...formData, category: c, type: "income" });
-            } else if (expenseCategories.map((iC) => iC.type).includes(c)) {
-              setFormData({ ...formData, category: c, type: "expense" });
-            }
-            break;
-          case "date":
-            setFormData({ ...formData, date: e.value });
-            break;
-          default:
-            break;
-        }
-      });
-      formData.description = "Added by Speechly";
-    }
-  };
-  useEffect(() => {
-    getSpeech();
-  }, [segment]);
 
   const handleChange = (e: React.ChangeEvent<HTMLElement> | undefined) => {
     let { name, value } = e!.target as HTMLInputElement;
@@ -198,7 +162,7 @@ function InputForm() {
             Amount<span className="text-danger">*</span>
           </Form.Label>
           <InputGroup className="mb-3">
-            <InputGroup.Text>₹</InputGroup.Text>
+            <InputGroup.Text>$</InputGroup.Text>
             <Form.Control
               id="transaction-amount"
               placeholder="Enter Amount"

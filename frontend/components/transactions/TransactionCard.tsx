@@ -69,7 +69,7 @@ const TransactionCard = ({
           >
             {dateString(transaction.date)}
           </p>
-          <h4 className="py-0 ">₹{transaction.amount}</h4>
+          <h4 className="py-0 ">${transaction.amount}</h4>
         </div>
       </Col>
       <Col

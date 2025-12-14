@@ -15,7 +15,7 @@ function PageNavbar() {
               height="30"
               className={`d-inline-block align-top ${style.rotate}`}
             />{" "}
-            Expense Tracker
+           RA2
           </Navbar.Brand>
           <ConnectButton moralisAuth={false} />
         </Container>
