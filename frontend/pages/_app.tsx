@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
               <React.Fragment>
                 <Head>
                   <title>Expense Tracker</title>
-                  <meta name="description" content="Made by Joy Almeida" />
+                  <meta name="description" content="Made by HackerX" />
                   <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <PageNavbar />
